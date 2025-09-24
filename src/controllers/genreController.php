@@ -1,8 +1,9 @@
 <?php
 
-function listGenres() {
+function listeGenres() {
 
     $genres = getAllGenres();
 
-    include __DIR__ ."/../../templates/genres/list_genres.php";
+    include __DIR__ ."/../../templates/genres/liste_genres.php";
 }
+

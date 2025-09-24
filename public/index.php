@@ -19,38 +19,54 @@ require_once __DIR__ .'/../src/controllers/genreController.php';
 // Récupération de l'action demandée
 $action = $_GET['action'] ?? 'index';
 
+$routes = [
+    'index' => [
+        'fonction' => 'indexFilms', 
+        'methodes' => ['GET']
+],
+    'show' => [
+        'fonction' => 'shoFilm',
+        'methodes' => ['GET']
+],
+    'create' => [
+        'fonction' => 'createFilm',
+        'methodes' => ['GET', 'POST']
+],
+    'edit' => [
+        'fonction' => 'editFilms', 
+        'methodes' => ['GET', 'POST']
+],
+    'delete' => [
+        'fonction' => 'deleteFilms', 
+        'methodes' => ['GET']
+],
+    'search' => [
+        'fonction' => 'searchFilms',
+        'methodes' => ['GET']
+],
+    'liste_genres' => [
+        'fonction' => 'listeGenres',
+        'methodes' => ['GET']
+],
+];
+
 // Routage des actions - les contrôleurs gèrent leurs propres paramètres
-switch ($action) {
-    case 'index':
-        indexFilms();
-        break;
-
-    case 'show':
-        showFilm();
-        break;
-
-    case 'create':
-        createFilm();
-        break;
-
-    case 'edit':
-        editFilm();
-        break;
-
-    case 'delete':
-        deleteFilm();
-        break;
-
-    case 'search':
-        searchFilms();
-        break;
-
-    case 'list_genres':
-        listGenres();
-        break;
-    
-    default:
-        // Action non reconnue, redirection vers l'index
-        header("Location: index.php?action=index");
+$route_name = array_keys($routes);
+if (in_array($action, $route_name)) {
+    $route = $routes[$action];
+    if (in_array($_SERVER['REQUEST_METHOD'], $route['methodes'])) {
+        $fonction = $route['fonction'];
+        $fonction(); 
+    } else {
+        http_response_code(405);
+        echo "Méthode non autorisée pour cette action.Méthode autorisé pour cette action . $route[methodes]";
         exit;
+    }
+} else {
+    header("Location: index.php");
+    exit;
 }
+
+    
+
+

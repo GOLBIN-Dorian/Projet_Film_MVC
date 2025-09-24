@@ -10,7 +10,7 @@ ob_start();
     <!-- Formulaire de recherche -->
     <form method="GET" class="search-form">
         <input type="hidden" name="action" value="search">
-        <input type="text" name="search" placeholder="Rechercher par titre ou réalisateur..." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+        <input type="text" name="search" placeholder="Rechercher par genre..." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
         <button type="submit" class="btn">Rechercher</button>
         <a href="index.php?action=index" class="btn btn-warning">Effacer</a>
     </form>
@@ -21,7 +21,7 @@ ob_start();
     </div>
 
     <?php if (empty($genres)): ?>
-        <p>Aucun film trouvé.</p>
+        <p>Aucun genre trouvé.</p>
     <?php else: ?>
         <table class="table">
             <thead>
